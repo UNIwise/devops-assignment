@@ -2,6 +2,7 @@ package main
 
 import (
 	"encoding/json"
+	"errors"
 	"io"
 	"log"
 	"net/http"
@@ -23,6 +24,7 @@ const (
 )
 
 var (
+	users       Users
 	rdb         *redis.Client
 	broadcaster *redis.PubSub
 )
@@ -154,6 +156,14 @@ func main() {
 	}
 	rdb = redis.NewClient(opt)
 
+	b, err := os.ReadFile("secrets/users.json")
+	if err != nil {
+		panic(err)
+	}
+	if err := users.FromJson(string(b)); err != nil {
+		panic(err)
+	}
+
 	broadcaster = rdb.Subscribe(PubSubTopic)
 
 	http.HandleFunc("/", func(w http.ResponseWriter, r *http.Request) {
@@ -185,9 +195,29 @@ func (c *ChatMessage) FromJson(in string) error {
 
 func (c *ChatMessage) Validate() error {
 	validate := validator.New()
+
+	if !users.ValidUser(c.Username) {
+		return errors.New("invalid username")
+	}
+
 	return validate.Struct(c)
 }
 
 func (c ChatMessage) MarshalBinary() ([]byte, error) {
 	return json.Marshal(c)
+}
+
+type Users []string
+
+func (u *Users) FromJson(in string) error {
+	return json.Unmarshal([]byte(in), u)
+}
+
+func (u Users) ValidUser(in string) bool {
+	for _, usr := range u {
+		if usr == in {
+			return true
+		}
+	}
+	return false
 }

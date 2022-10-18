@@ -7,6 +7,7 @@ import (
 )
 
 func TestChatMessage_Validate(t *testing.T) {
+	users = Users{"test", "t", "Tester mcTesterson the third"}
 	type fields struct {
 		Username  string
 		Text      string
@@ -21,6 +22,7 @@ func TestChatMessage_Validate(t *testing.T) {
 		{"valid message", fields{Username: "test", Text: "test"}, false},
 		{"username too short", fields{Username: "t", Text: "test"}, true},
 		{"username too long", fields{Username: "Tester mcTesterson the third"}, true},
+		{"username invalid", fields{Username: "invalid", Text: "test"}, true},
 		{"invalid text", fields{Username: "test", Text: "test"}, false},
 	}
 	for _, tt := range tests {
