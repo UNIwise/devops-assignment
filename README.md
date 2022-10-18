@@ -39,4 +39,4 @@ It would be great for future hires if you are willing to provide feedback on the
 ## Caveats
 This assignment is relatively new so there might be some strange things please ask if something seems very strange.
 
-The assignment has only been tested on linux. There is not reason why it should not be completable on other operative systems but speak up if something seems impossible.
+The assignment has only been tested on Linux. There is not reason why it should not be completable on other operative systems but speak up if something seems impossible.
