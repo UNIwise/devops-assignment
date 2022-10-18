@@ -16,7 +16,7 @@ In this repository you will find a small REST server written in go. Your job is 
 Run kubernetes locally using minikube (or in a cluster if you have access to one)
 
 ### 1) Dockerization
-Create a docker file with your base image of choice. Bonus points if only include what is needed to run the application.
+Create a Dockerfile with your base image of choice. Bonus points if only include what is needed to run the application.
 
 Build the image locally and verify that the server works.
 
