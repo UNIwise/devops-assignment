@@ -1,5 +1,6 @@
 # DevOps Assignment
 
+DEV DEV DEV
 ## About the Assignment
 The assignment consists of multiple steps where each step builds upon the previous. So to avoid having to redo something it is recommended to read the whole assignment before diving in. 
 
